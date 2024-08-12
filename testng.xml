@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="methods" thread-count="2">
+    <listeners>
+        <listener class-name="TestNG.Listener"/>
+        <listener class-name="TestNG.Listener"/>
+
+       <!--Add many class that you the listener to listen to like above !-->
+    </listeners>
+
+    <test verbose="2" preserve-order="true" name="C:/Users/LadokunY/IdeaProjects/Java T/src/TestNG/GroupTests.java">
+      <groups>
+          <run>
+              <include name="sanity"/>
+              <exclude name="regression"/>
+          </run>
+      </groups>
+        <classes>
+            <class name="TestNG.GroupTests">
+                <methods>
+                    <include name="launchBrowser"/>
+                    <include name="userLogin"/>
+                    <include name="verifyInfoOnPage"/>
+                    <include name="closeBrowser"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="parameter">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="https://google.com"/>
+        <classes>
+            <class name="TestNG.Parameterize">
+                <methods>
+                    <include name="launchBrower"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="MethodParallelExecution">
+        <classes>
+            <class name="TestNG.ParralelExecution">
+                <methods>
+                    <include name="info"/>
+                    <include name="info2"/>
+                    <include name="study"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="MethodParallelExecution">
+        <classes>
+            <class name="TestNG.ParralelExecution"/>
+            <class name="TestNG.ParralelExecution2">
+            </class>
+        </classes>
+    </test>
+
+    <test name="GroupDependsOnGroup">
+        <groups>
+            <dependencies>
+                <group name="sanity" depends-on="smoke"/>
+                <group name="regression" depends-on="sanity"/>
+            </dependencies>
+        </groups>
+        <classes>
+            <class name="TestNG.GroupTests"/>
+            <class name="TestNG.ParralelExecution2">
+            </class>
+        </classes>
+    </test>
+</suite>
